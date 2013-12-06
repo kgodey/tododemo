@@ -14,3 +14,6 @@ class ToDoItem(models.Model):
 	priority = models.CharField(max_length=1, choices=PRIORITY_CHOICES, default='3')
 	completed = models.BooleanField(default=False)
 	notes = models.TextField(blank=True)
+	
+	def __unicode__(self):
+		return self.title

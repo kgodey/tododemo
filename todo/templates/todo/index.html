@@ -1,0 +1,24 @@
+<html>
+<head>
+	<title>TopTal To-do Assignment</title>
+</head>
+<body>
+	<h1>TopTal To-do List</h1>
+	{% if todo_list %}
+		{% for todo in todo_list %}
+			<h3>{{ todo.title }}</h3>
+			<p><b>Due date:</b> {{ todo.due_date}}, <b>Priority:</b> {{ todo.priority }}</p>
+			{% if todo.notes %}
+				<p><em>{{ todo.notes }}</em></p>
+			{% endif %}
+			{% if todo.completed %}
+				<p>This task is complete.</p>
+			{% else %}
+				<p>Not yet completed.</p>
+			{% endif %}
+		{% endfor %}
+	{% else %}
+		<p><em>No to-do items yet!</em></p>
+	{% endif %}
+</body>
+</html>
