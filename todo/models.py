@@ -9,8 +9,8 @@ class ToDoItem(models.Model):
 		('5', 'Lowest'),
 	)
 	title = models.CharField(max_length=255)
-	date_added = models.DateTimeField()
+	date_added = models.DateTimeField(auto_now_add=True)
 	due_date = models.DateTimeField()
 	priority = models.CharField(max_length=1, choices=PRIORITY_CHOICES)
 	completed = models.BooleanField(default=False)
-	notes = models.TextField()
+	notes = models.TextField(blank=True)
