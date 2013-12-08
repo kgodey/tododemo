@@ -1,5 +1,7 @@
+{% load staticfiles %}
 <html>
 <head>
+	<link rel="stylesheet" type="text/css" href="/static/todo/css/style.css">
 	<title>TopTal To-do Assignment</title>
 </head>
 <body>
@@ -20,5 +22,9 @@
 	{% else %}
 		<p><em>No to-do items yet!</em></p>
 	{% endif %}
+	<script type="text/javascript" src="/static/todo/js/jquery-2.0.3.min.js"></script>
+	<script type="text/javascript" src="/static/todo/js/underscore-min.js"></script>
+	<script type="text/javascript" src="/static/todo/js/backbone-min.js"></script>
+	<script type="text/javascript" src="/static/todo/js/application.js"></script>
 </body>
 </html>
