@@ -1,28 +1,87 @@
 {% load staticfiles %}
 <html>
 <head>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/todo/css/jquery-ui-1.10.0.custom.css">
 	<link rel="stylesheet" type="text/css" href="/static/todo/css/style.css">
-	<title>TopTal To-do Assignment</title>
+	<script type="text/javascript" src="/static/todo/js/jquery-2.0.3.min.js"></script>
+	<script type="text/javascript" src="/static/todo/js/jquery-ui-1.10.3.custom.min.js"></script>
+	<title>TopTal To-do list</title>
+	<script>
+		$(function() {
+			$( ".datepicker" ).datepicker();
+		});
+		TODOS_APIKEY = "{{ api_key }}";
+		TODOS_USERNAME = "{{ username }}";
+	</script>
+	<style>
+		div.todolist {
+			margin-left:auto;
+			margin-right:auto;
+			max-width:70%;
+		}
+	</style>
 </head>
 <body>
-	<h1>TopTal To-do List</h1>
-	{% if todo_list %}
-		{% for todo in todo_list %}
-			<h3>{{ todo.title }}</h3>
-			<p><b>Due date:</b> {{ todo.due_date}}, <b>Priority:</b> {{ todo.priority }}</p>
-			{% if todo.notes %}
-				<p><em>{{ todo.notes }}</em></p>
-			{% endif %}
-			{% if todo.completed %}
-				<p>This task is complete.</p>
-			{% else %}
-				<p>Not yet completed.</p>
-			{% endif %}
-		{% endfor %}
-	{% else %}
-		<p><em>No to-do items yet!</em></p>
-	{% endif %}
-	<script type="text/javascript" src="/static/todo/js/jquery-2.0.3.min.js"></script>
+	<div class="todolist">
+		<div class="container">
+			<h2>TopTal To-do List</h2>
+				<div class="row">
+					<button type="button" class="sortbyduedate btn btn-default">Sort by Due Date</button>
+					<button type="button" class="sortbypriority btn btn-default">Sort by Priority</button>
+					<button type="button" class="sortbydateadded btn btn-default">Sort by Date Added</button>
+				</div>
+			</div>
+			<div class="table-responsive">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th></th>
+							<th>Title</th>
+							<th>Due date</th>
+							<th>Priority</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="todoitem" id="addnewitem">
+							<td class="completed"></td>
+							<td class="title"><input type="text" id="newtitle" value="New todo item"></td>
+							<td class="duedate"><input type="text" class="datepicker" id="newduedate"></td>
+							<td class="priority">
+								<select id="newpriority">
+									<option value="lowest">Lowest</option>
+									<option value="low">Low</option>
+									<option value="medium"selected>Medium</option>
+									<option value="high">High</option>
+									<option value="highest">Highest</option>
+								</select>
+							</td>
+							<td class="addbutton"><button type="button" class="btn btn-primary">Add</button></td>
+						</tr>
+						{% if todo_list %}
+							{% for todo in todo_list %}
+								<tr class="todoitem">
+									<td class="completed">{% if todo.completed %} <input type="checkbox" class="completed" checked/> {% else %} <input type="checkbox" class="completed"/>{% endif %}</td>
+									<td class="title"><input type="text" value="{{ todo.title }}" class="view"></td>
+									<td class="duedate"><input type="text" class="view datepicker" value="{{ todo.due_date }}"></td>
+									<td class="priority"><select class="priority" class="view">
+										<option value="current">{{ todo.get_priority_display }}</option>
+										<option value="lowest">Lowest</option>
+										<option value="low">Low</option>
+										<option value="medium">Medium</option>
+										<option value="high">High</option>
+										<option value="highest">Highest</option>
+									</select></td>
+									<td class="removeitem"><button type="button" class="removeitem btn btn-danger btn-xs">Remove</button></td>
+								</tr>
+							{% endfor %}
+						{% endif %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 	<script type="text/javascript" src="/static/todo/js/underscore-min.js"></script>
 	<script type="text/javascript" src="/static/todo/js/backbone-min.js"></script>
 	<script type="text/javascript" src="/static/todo/js/backbone-tastypie.js"></script>

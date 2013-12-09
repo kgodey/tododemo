@@ -1,0 +1,11 @@
+tr.todoitem td input {
+	width: 100%;
+}
+
+tr.todoitem td .view {
+	background-color: transparent;
+	border: none;
+	color: #000000;
+	box-shadow: none;
+}
+
