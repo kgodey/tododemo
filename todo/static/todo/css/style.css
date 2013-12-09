@@ -9,3 +9,14 @@ tr.todoitem td .view {
 	box-shadow: none;
 }
 
+tr.completeditem td .view {
+	color: lightgray;
+}
+
+.glyphicon {
+	margin-left:10px;
+}
+
+.panel {
+	margin-top: 3%;
+}

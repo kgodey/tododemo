@@ -10,10 +10,10 @@ $(function() {
 			notes: "",
 		},
 		
-		url: function() {
-			var id = this.id || '';
-			return "/api/v1/todoitem/"+id;
-		},
+		// url: function() {
+		// 	var id = this.id || '';
+		// 	return "/api/v1/todoitem/" + id;
+		// },
 		
 		toggleComplete: function() {
 			this.save({
@@ -26,7 +26,7 @@ $(function() {
 	TodoList = Backbone.Collection.extend({
 		model: app.TodoItem,
 		meta: {},
-		url: "/api/v1/todoitem",
+		url: "/api/v1/todoitem/",
 		
 		parse: function(response) {
 			this.meta = response.meta;
@@ -43,17 +43,20 @@ $(function() {
 		
 		events: {
 			'focus .title': 'editTitle',
-			'click .removeitem': 'removeItem',
-			'change .completed': 'toggleComplete',
 			'focus .priority': 'editPriority',
 			'focus .duedate': 'editDueDate',
-			'keypress .edit .title input': 'updatTitleeOnEnter',
+			'change .title': 'saveTitle',
+			'change .priority': 'savePriority',
+			'change .duedate': 'saveDueDate',
+			'click .removeitem': 'removeItem',
+			'change .completed input': 'toggleComplete',
+			'keypress .title input': 'updateTitleOnEnter',
 			'blur .title input': 'closeTitle',
 			'blur .duedate input': 'closeDueDate',
 			'blur .priority select': 'closePriority',
 		},
 		
-		initialize: function() {
+		initialize: function() {			
 			this.listenTo(this.model, "change", this.render);
 			this.listenTo(this.model, "destroy", this.remove);
 		},
@@ -62,14 +65,16 @@ $(function() {
 			this.$el.attr("id", this.model.get("id"));
 			this.$el.html(this.template(this.model.toJSON()));
 			this.$el.toggleClass("completeditem", this.model.get("completed"));
-			this.$title = this.$(".edit .title input");
-			this.$priority = this.$(".edit .priority select");
-			this.$due_date = this.$(".edit .duedate input");
+			this.$title = this.$(".title input");
+			this.$priority = this.$(".priority select");
+			this.$due_date = this.$(".duedate input");
 			
+			this.$( ".datepicker" ).datepicker({dateFormat:"yy-mm-dd"});
 			return this;
 		},
 		
 		removeItem: function() {
+			console.log(this);
 			this.model.destroy();
 		},
 		
@@ -79,18 +84,14 @@ $(function() {
 		
 		editTitle: function() {
 			this.$title.removeClass("view");
-			this.$title.prop('disabled', false);
-			this.$title.focus();
 		},
 		
 		editPriority: function() {
 			this.$priority.removeClass("view");
-			this.$priority.focus();
 		},
 		
 		editDueDate: function() {
 			this.$due_date.removeClass("view");
-			this.$due_date.focus();
 		},
 		
 		updateTitleOnEnter: function(event) {
@@ -100,33 +101,30 @@ $(function() {
 		},
 		
 		closeTitle: function() {
-			var title = this.$title.val().trim();
-			if (!title) {
-				this.clear();
-			} else {
-				this.model.save({title: title});
-				this.$title.addClass("view");
-			}
+			this.$title.addClass("view");
 		},
 		
 		closeDueDate: function() {
-			var due_date = this.$due_date.val().trim();
-			if (!due_date) {
-				this.clear();
-			} else {
-				this.model.save({due_date: due_date});
-				this.$due_date.addClass("view");
-			}
+			this.$due_date.addClass("view");
 		},
 		
 		closePriority: function() {
+			this.$priority.addClass("view");
+		},
+		
+		saveTitle: function() {
+			var title = this.$title.val().trim();
+			this.model.save({title: title});
+		},
+		
+		savePriority: function() {
 			var priority = this.$priority.val().trim();
-			if (!priority) {
-				this.clear();
-			} else {
-				this.model.save({priority: priority});
-				this.$priority.addClass("view");
-			}
+			this.model.save({priority: priority});
+		},
+		
+		saveDueDate: function() {
+			var due_date = this.$due_date.val().trim();
+			this.model.save({due_date: due_date});
 		},
 		
 	});
@@ -136,6 +134,7 @@ $(function() {
 		
 		events: {
 			'click .addbutton button': 'createItem',
+			'keyup #newtitle': 'createItemOnEnter',
 			// 'click .sortbyduedate': 'sortByDueDate',
 			// 'click .sortbypriority': 'sortByPriority',
 			// 'click .sortbydateadded': 'sortByDateAdded',
@@ -143,10 +142,15 @@ $(function() {
 		
 		initialize: function() {
 			$.ajaxPrefilter(function(options) {
-				_.extend(options, {format: "json", username: TODOS_USERNAME, api_key: TODOS_APIKEY});
+				_.extend(options, {
+					headers: {
+						'Authorization': 'ApiKey ' + TODOS_USERNAME + ':' + TODOS_APIKEY,
+					}
+				});
 			});
 			
 			this.listenTo(app.Todos, "add", this.addOne);
+			this.listenTo(app.Todos, "reset", this.addAll);
 			
 			app.Todos.fetch();
 		},
@@ -161,13 +165,20 @@ $(function() {
 			this.$("#addnewitem select#newpriority").val("3");
 		},
 		
+		createItemOnEnter: function(event) {
+			if (event.keyCode == 13) {
+				event.preventDefault();
+				$(".addbutton button").click();
+			}
+		},
+		
 		addOne: function(todo) {
 			var view = new app.TodoView({model: todo});
-			$("#todolist").append(view.render().el);
+			$("#todotable tbody#todotbody").append(view.render().el);
 		},
 		
 		addAll: function() {
-			this.$("todolist").html("");
+			this.$("#todotable tbody#todotbody").html("");
 			app.Todos.each(this.addOne, this);
 		},
 	});

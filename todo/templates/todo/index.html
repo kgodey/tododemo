@@ -7,10 +7,10 @@
 	<link rel="stylesheet" type="text/css" href="/static/todo/css/style.css">
 	<script type="text/javascript" src="/static/todo/js/jquery-2.0.3.min.js"></script>
 	<script type="text/javascript" src="/static/todo/js/jquery-ui-1.10.3.custom.min.js"></script>
-	<title>TopTal To-do list</title>
+	<title>Toptal To-do List Demonstration</title>
 	<script>
 		$(function() {
-			$( ".datepicker" ).datepicker();
+			$( ".datepicker" ).datepicker({dateFormat:"yy-mm-dd"});
 		});
 		TODOS_APIKEY = "{{ api_key }}";
 		TODOS_USERNAME = "{{ username }}";
@@ -24,62 +24,57 @@
 	</style>
 </head>
 <body>
-	<div class="todolist">
-		<div class="container">
-			<h2>TopTal To-do List</h2>
-				<div class="row">
-					<button type="button" class="sortbyduedate btn btn-default">Sort by Due Date</button>
-					<button type="button" class="sortbypriority btn btn-default">Sort by Priority</button>
-					<button type="button" class="sortbydateadded btn btn-default">Sort by Date Added</button>
-				</div>
-			</div>
-			<div class="table-responsive">
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th></th>
-							<th>Title</th>
-							<th>Due date</th>
-							<th>Priority</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class="todoitem" id="addnewitem">
-							<td class="completed"></td>
-							<td class="title"><input type="text" id="newtitle" value="New todo item"></td>
-							<td class="duedate"><input type="text" class="datepicker" id="newduedate"></td>
-							<td class="priority">
-								<select id="newpriority">
-									<option value="lowest">Lowest</option>
-									<option value="low">Low</option>
-									<option value="medium"selected>Medium</option>
-									<option value="high">High</option>
-									<option value="highest">Highest</option>
-								</select>
-							</td>
-							<td class="addbutton"><button type="button" class="btn btn-primary">Add</button></td>
-						</tr>
-						{% if todo_list %}
-							{% for todo in todo_list %}
-								<tr class="todoitem">
-									<td class="completed">{% if todo.completed %} <input type="checkbox" class="completed" checked/> {% else %} <input type="checkbox" class="completed"/>{% endif %}</td>
-									<td class="title"><input type="text" value="{{ todo.title }}" class="view"></td>
-									<td class="duedate"><input type="text" class="view datepicker" value="{{ todo.due_date }}"></td>
-									<td class="priority"><select class="priority" class="view">
-										<option value="current">{{ todo.get_priority_display }}</option>
-										<option value="lowest">Lowest</option>
-										<option value="low">Low</option>
-										<option value="medium">Medium</option>
-										<option value="high">High</option>
-										<option value="highest">Highest</option>
-									</select></td>
-									<td class="removeitem"><button type="button" class="removeitem btn btn-danger btn-xs">Remove</button></td>
-								</tr>
-							{% endfor %}
-						{% endif %}
-					</tbody>
-				</table>
-			</div>
+	<div class="todolist panel panel-default" id="todolist">
+		<div class="panel-heading">
+			<h3 class="panel-title">Toptal To-do List Demonstration</h3>
+		</div>
+		<div class="table-responsive panel-body">
+			<table class="table table-striped" id="todotable">
+				<thead>
+					<tr>
+						<th></th>
+						<th>Title <span class="glyphicon glyphicon-sort"></span></th>
+						<th>Due date <span class="glyphicon glyphicon-sort"></span></th>
+						<th>Priority <span class="glyphicon glyphicon-sort"></span></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="todoitem" id="addnewitem">
+						<td class="completed"></td>
+						<td class="title"><input type="text" id="newtitle" placeholder="New todo item"></td>
+						<td class="duedate"><input type="text" class="datepicker" id="newduedate"></td>
+						<td class="priority">
+							<select id="newpriority">
+								<option value="5">Lowest</option>
+								<option value="4">Low</option>
+								<option value="3"selected>Medium</option>
+								<option value="2">High</option>
+								<option value="1">Highest</option>
+							</select>
+						</td>
+						<td class="addbutton"><button type="button" class="btn btn-primary">Add</button></td>
+					</tr>
+				</tbody>
+				<tbody id="todotbody">
+					<script id="todoitem-template" type="text/template">
+						<td class="completed"><input type="checkbox"<%= completed ? "checked" : "" %>></td>
+						<td class="title"><input type="text" value="<%= title %>" class="view"></td>
+						<td class="duedate"><input type="text" class="view datepicker" value="<%= due_date %>"></td>
+						<td class="priority"><select class="priority" class="view" <%= completed ? "disabled=true" : "" %>>
+							<option value="5"<% if (priority == "5") { %> selected<% } %>>Lowest</option>
+							<option value="4"<% if (priority == "4") { %> selected<% } %>>Low</option>
+							<option value="3"<% if (priority == "3") { %> selected<% } %>>Medium</option>
+							<option value="2"<% if (priority == "2") { %> selected<% } %>>High</option>
+							<option value="1"<% if (priority == "1") { %> selected<% } %>>Highest</option>
+						</select></td>
+						<td><button type="button" class="removeitem btn btn-danger btn-xs">Remove</button></td>
+					</script>
+				</tbody>
+			</table>
+		</div>
+		<div class="panel-footer">
+			<h4>{{ username }}, <small>you can also access the API using your API key: {{ api_key }}.</small></h4>
 		</div>
 	</div>
 	<script type="text/javascript" src="/static/todo/js/underscore-min.js"></script>

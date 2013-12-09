@@ -96,3 +96,6 @@ STATICFILES_DIRS = (
 
 # Heroku settings
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# disable tastypie pagination
+API_LIMIT_PER_PAGE = 0
