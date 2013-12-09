@@ -59,8 +59,8 @@
 				<tbody id="todotbody">
 					<script id="todoitem-template" type="text/template">
 						<td class="completed"><input type="checkbox"<%= completed ? "checked" : "" %>></td>
-						<td class="title"><input type="text" value="<%= title %>" class="view"></td>
-						<td class="duedate"><input type="text" class="view datepicker" value="<%= due_date %>"></td>
+						<td class="title"><input type="text" value="<%= title %>" class="view" <%= completed ? "disabled=true" : "" %>></td>
+						<td class="duedate"><input type="text" class="view datepicker" value="<%= due_date %>" <%= completed ? "disabled=true" : "" %>></td>
 						<td class="priority"><select class="priority" class="view" <%= completed ? "disabled=true" : "" %>>
 							<option value="5"<% if (priority == "5") { %> selected<% } %>>Lowest</option>
 							<option value="4"<% if (priority == "4") { %> selected<% } %>>Low</option>
