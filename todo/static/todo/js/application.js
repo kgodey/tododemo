@@ -10,11 +10,6 @@ $(function() {
 			notes: "",
 		},
 		
-		// url: function() {
-		// 	var id = this.id || '';
-		// 	return "/api/v1/todoitem/" + id;
-		// },
-		
 		toggleComplete: function() {
 			this.save({
 				completed: !this.get("completed")
@@ -27,10 +22,39 @@ $(function() {
 		model: app.TodoItem,
 		meta: {},
 		url: "/api/v1/todoitem/",
+		sortField: 'date_added',
+		sortAscending: true,
 		
 		parse: function(response) {
 			this.meta = response.meta;
 			return response.objects;
+		},
+		
+		sortTodos: function(field) {
+			if (field == this.sortField) {
+				this.sortAscending = !this.sortAscending;
+			} else {
+				this.sortAscending = true;
+				this.sortField = field;
+			}
+			this.sort();
+		},
+		
+		comparator: function(todo1, todo2) {
+			var todo1 = todo1.get(this.sortField) || '';
+			var todo2 = todo2.get(this.sortField) || '';
+			
+			if (this.sortField == 'title') {
+				todo1 = todo1.toLowerCase();
+				todo2 = todo2.toLowerCase();
+			}
+		
+			if (todo1 == todo2) return 0;
+			if (this.sortAscending == 1) {
+				return todo1 > todo2 ? 1 : -1;
+			} else {
+				return todo1 < todo2 ? 1 : -1;
+			}
 		},
 	});
 	
@@ -135,9 +159,10 @@ $(function() {
 		events: {
 			'click .addbutton button': 'createItem',
 			'keyup #newtitle': 'createItemOnEnter',
-			// 'click .sortbyduedate': 'sortByDueDate',
-			// 'click .sortbypriority': 'sortByPriority',
-			// 'click .sortbydateadded': 'sortByDateAdded',
+			'click button#sortduedate': 'sortByDueDate',
+			'click button#sortpriority': 'sortByPriority',
+			'click button#sorttitle': 'sortByTitle',
+			'click button#sortcompleted': 'sortByCompleted',
 		},
 		
 		initialize: function() {
@@ -170,6 +195,26 @@ $(function() {
 				event.preventDefault();
 				$(".addbutton button").click();
 			}
+		},
+		
+		sortByDueDate: function() {
+			app.Todos.sortTodos('due_date');
+			this.addAll();
+		},
+		
+		sortByPriority: function() {
+			app.Todos.sortTodos('priority');
+			this.addAll();
+		},
+		
+		sortByTitle: function() {
+			app.Todos.sortTodos('title');
+			this.addAll();
+		},
+		
+		sortByCompleted: function() {
+			app.Todos.sortTodos('completed');
+			this.addAll();
 		},
 		
 		addOne: function(todo) {
