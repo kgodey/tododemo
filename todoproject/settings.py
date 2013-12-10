@@ -1,5 +1,5 @@
 """
-Django settings for toptaltodo project.
+Django settings for todoproject project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.6/topics/settings/
@@ -49,9 +49,9 @@ MIDDLEWARE_CLASSES = (
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'toptaltodo.urls'
+ROOT_URLCONF = 'todoproject.urls'
 
-WSGI_APPLICATION = 'toptaltodo.wsgi.application'
+WSGI_APPLICATION = 'todoproject.wsgi.application'
 
 
 # Database
