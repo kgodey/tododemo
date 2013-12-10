@@ -23,7 +23,7 @@ $(function() {
 		meta: {},
 		url: "/api/v1/todoitem/",
 		sortField: 'date_added',
-		sortAscending: true,
+		sortAscending: false,
 		
 		parse: function(response) {
 			this.meta = response.meta;
@@ -176,8 +176,11 @@ $(function() {
 			
 			this.listenTo(app.Todos, "add", this.addOne);
 			this.listenTo(app.Todos, "reset", this.addAll);
+			this.listenTo(app.Todos, "change", this.resort);
+			this.listenTo(app.Todos, "sort", this.addAll);
 			
 			app.Todos.fetch();
+			this.sortByCompleted();
 		},
 		
 		createItem: function() {
@@ -215,6 +218,10 @@ $(function() {
 		sortByCompleted: function() {
 			app.Todos.sortTodos('completed');
 			this.addAll();
+		},
+		
+		resort: function() {
+			app.Todos.sort();
 		},
 		
 		addOne: function(todo) {
