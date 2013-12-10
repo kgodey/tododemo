@@ -4,7 +4,7 @@
 	{% if form.non_field.errors %}
 	<div class="alert alert-danger">{{ form.non_field.errors }}</div>
 	{% endif %}
-	<form role="form" class="signupform" method="post" action="/signup/">
+	<form role="form" class="signupform" method="post" action="{% url 'signup' %}">
 		{% csrf_token %}
 		<div class="form-group">
 			{% if form.username.errors %}
@@ -28,8 +28,8 @@
 			{{ form.password2 }}
 		</div>
 		<input type="submit" class="btn btn-default submit" value="Sign Up"/>
-		<input type="hidden" name="next" value="/" />
+		<input type="hidden" name="next" value="{% url 'index' %}" />
 	</form>
-	<div class="pull-right"><a href="/login/"><button class="btn btn-default" type="button">Login</button></a></div>
+	<div class="pull-right"><a href="{% url 'login' %}"><button class="btn btn-default" type="button">Login</button></a></div>
 </div>
 {% endblock %}

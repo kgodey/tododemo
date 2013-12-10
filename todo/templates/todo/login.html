@@ -4,7 +4,7 @@
 	{% if form.errors %}
 	<div class="alert alert-warning">Your username and password didn't match. Please try again.</div>
 	{% endif %}
-	<form role="form" class="loginform" method="post" action="/login/">
+	<form role="form" class="loginform" method="post" action="{% url 'login' %}">
 		{% csrf_token %}
 		<div class="form-group">
 			<label for="username_input">{{ form.username.label_tag }}</label>
@@ -15,8 +15,8 @@
 			{{ form.password }}
 		</div>
 		<input type="submit" class="btn btn-default submit" value="Login" />
-		<input type="hidden" name="next" value="/" />
+		<input type="hidden" name="next" value="{% url 'index' %}" />
 	</form>
-	<div class="pull-right"><a href="/signup/"><button class="btn btn-default" type="button">Sign Up</button></a></div>
+	<div class="pull-right"><a href="{% url 'signup' %}"><button class="btn btn-default" type="button">Sign Up</button></a></div>
 </div>
 {% endblock %}

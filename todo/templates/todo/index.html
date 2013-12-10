@@ -46,6 +46,6 @@
 	</table>
 </div>
 <div class="panel-footer">
-	<p><small>{{ username }}, you can also access the API using your API key:</small> <code>{{ api_key }}</code><span class="pull-right"><a href="/logout/"><button class="btn btn-default btn-sm" type="button">Log Out</button></a></p>
+	<p><small>{{ username }}, you can also access the API using your API key:</small> <code>{{ api_key }}</code><span class="pull-right"><a href="{% url 'logout' %}"><button class="btn btn-default btn-sm" type="button">Logout</button></a></p>
 </div>
 {% endblock %}
