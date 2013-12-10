@@ -14,5 +14,5 @@ urlpatterns = patterns('',
 	url(r'^admin/', include(admin.site.urls)),
 	url(r'^api/', include(v1_api.urls)),
 	url(r'^login/', 'django.contrib.auth.views.login', {'template_name': 'todo/login.html'}),
-	url(r'^logout/', 'django.contrib.auth.views.logout', {'next_page': '/login/'}),
+	url(r'^logout/', 'django.contrib.auth.views.logout_then_login'),
 )
