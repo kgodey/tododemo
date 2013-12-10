@@ -1,0 +1,35 @@
+{% extends "todo/base.html" %}
+{% block content %}
+<div class="panel-body">
+	{% if form.non_field.errors %}
+	<div class="alert alert-danger">{{ form.non_field.errors }}</div>
+	{% endif %}
+	<form role="form" class="signupform" method="post" action="/signup/">
+		{% csrf_token %}
+		<div class="form-group">
+			{% if form.username.errors %}
+				<div class="alert alert-danger">{{ form.username.errors }}</div>
+			{% endif %}
+			<label for="username_input">{{ form.username.label_tag }}</label>
+			{{ form.username }}
+		</div>
+		<div class="form-group">
+			{% if form.password1.errors %}
+				<div class="alert alert-danger">{{ form.password1.errors }}</div>
+			{% endif %}
+			<label for="password1_input">{{ form.password1.label_tag }}</label>
+			{{ form.password1 }}
+		</div>
+		<div class="form-group">
+			{% if form.password2.errors %}
+				<div class="alert alert-danger">{{ form.password2.errors }}</div>
+			{% endif %}
+			<label for="password2_input">{{ form.password2.label_tag }}</label>
+			{{ form.password2 }}
+		</div>
+		<input type="submit" class="btn btn-default submit" value="Sign Up"/>
+		<input type="hidden" name="next" value="/" />
+	</form>
+	<div class="pull-right"><a href="/login/"><button class="btn btn-default" type="button">Login</button></a></div>
+</div>
+{% endblock %}
