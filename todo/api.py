@@ -13,6 +13,13 @@ class ToDoItemResource(ModelResource):
 		authorization = PerUserAuthorization()
 		authentication = ApiKeyAuthentication()
 		max_limit = None
+		always_return_data = True
+	
+	def dehydrate_due_date(self, bundle):
+		try:
+			return bundle.data['due_date'].date()
+		except AttributeError:
+			return bundle.data['due_date']
 	
 	def hydrate_due_date(self, bundle):
 		if bundle.data['due_date'] == '':

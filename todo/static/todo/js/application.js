@@ -51,9 +51,9 @@ $(function() {
 		
 			if (todo1 == todo2) return 0;
 			if (this.sortAscending == 1) {
-				return todo1 > todo2 ? 1 : -1;
-			} else {
 				return todo1 < todo2 ? 1 : -1;
+			} else {
+				return todo1 > todo2 ? 1 : -1;
 			}
 		},
 	});
@@ -98,7 +98,6 @@ $(function() {
 		},
 		
 		removeItem: function() {
-			console.log(this);
 			this.model.destroy();
 		},
 		
@@ -226,7 +225,7 @@ $(function() {
 		
 		addOne: function(todo) {
 			var view = new app.TodoView({model: todo});
-			$("#todotable tbody#todotbody").append(view.render().el);
+			$("#todotable tbody#todotbody").prepend(view.render().el);
 		},
 		
 		addAll: function() {
