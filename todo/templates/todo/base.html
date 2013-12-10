@@ -1,0 +1,35 @@
+{% load staticfiles %}
+<html>
+<head>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/todo/css/jquery-ui-1.10.0.custom.css">
+	<link rel="stylesheet" type="text/css" href="/static/todo/css/style.css">
+	<script type="text/javascript" src="/static/todo/js/jquery-2.0.3.js"></script>
+	<script type="text/javascript" src="/static/todo/js/jquery-ui-1.10.3.custom.js"></script>
+	<title>Toptal To-do List Demonstration</title>
+	<script>
+		$(function() {
+			$( ".datepicker" ).datepicker({dateFormat:"yy-mm-dd"});
+		});
+		TODOS_APIKEY = "{{ api_key }}";
+		TODOS_USERNAME = "{{ username }}";
+	</script>
+</head>
+<body>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Toptal To-do List Demonstration</h3>
+		</div>
+		{% block content %}
+		{% endblock %}	
+		<div class="panel-footer">
+			<p><small>{{ username }}, you can also access the API using your API key:</small> <code>{{ api_key }}</code></p>
+		</div>
+	</div>
+	<script type="text/javascript" src="/static/todo/js/underscore.js"></script>
+	<script type="text/javascript" src="/static/todo/js/backbone.js"></script>
+	<script type="text/javascript" src="/static/todo/js/backbone-tastypie.js"></script>
+	<script type="text/javascript" src="/static/todo/js/application.js"></script>
+</body>
+</html>
