@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from todo.models import ToDoItem
+from tastypie.models import ApiKey
 from django.http import HttpResponseForbidden
 
 def index(request):
 	if request.user.is_authenticated():
-		todo_list = ToDoItem.objects.order_by('-date_added')
-		context = {'todo_list': todo_list, 'username': request.user.username, 'api_key': request.user.api_key.key}
-		return render(request, 'todo/index.html', context)
+		api_key = ApiKey.objects.get_or_create(user=request.user)
+		context = {'username': request.user.username, 'api_key': api_key[0].key}
 	else:
-		return HttpResponseForbidden('YOU SHALL NOT PASS!')
+		context = {}
+	return render(request, 'todo/index.html', context)

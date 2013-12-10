@@ -20,3 +20,11 @@ tr.completeditem td .view {
 .panel {
 	margin-top: 3%;
 }
+
+.loginform input {
+	margin-left:0px 10px;
+}
+
+.loginform .signuponly{
+	display: none;
+}

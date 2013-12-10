@@ -25,11 +25,6 @@ $(function() {
 		sortField: 'date_added',
 		sortAscending: false,
 		
-		parse: function(response) {
-			this.meta = response.meta;
-			return response.objects;
-		},
-		
 		sortTodos: function(field) {
 			if (field == this.sortField) {
 				this.sortAscending = !this.sortAscending;
@@ -98,7 +93,7 @@ $(function() {
 		},
 		
 		removeItem: function() {
-			this.model.destroy();
+			this.model.destroy({wait:true});
 		},
 		
 		toggleComplete: function() {
@@ -186,7 +181,7 @@ $(function() {
 			title = this.$("#addnewitem input#newtitle").val().trim();
 			priority = this.$("#addnewitem select#newpriority").val().trim();
 			due_date = this.$("#addnewitem input#newduedate").val().trim();
-			app.Todos.create({title:title, completed:false, priority:priority, due_date:due_date});
+			app.Todos.create({title:title, completed:false, priority:priority, due_date:due_date}, {wait:true});
 			this.$("#addnewitem input#newduedate").val("");
 			this.$("#addnewitem input#newtitle").val("");
 			this.$("#addnewitem select#newpriority").val("3");

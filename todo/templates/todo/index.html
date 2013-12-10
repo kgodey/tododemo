@@ -5,8 +5,8 @@
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
 	<link rel="stylesheet" type="text/css" href="/static/todo/css/jquery-ui-1.10.0.custom.css">
 	<link rel="stylesheet" type="text/css" href="/static/todo/css/style.css">
-	<script type="text/javascript" src="/static/todo/js/jquery-2.0.3.min.js"></script>
-	<script type="text/javascript" src="/static/todo/js/jquery-ui-1.10.3.custom.min.js"></script>
+	<script type="text/javascript" src="/static/todo/js/jquery-2.0.3.js"></script>
+	<script type="text/javascript" src="/static/todo/js/jquery-ui-1.10.3.custom.js"></script>
 	<title>Toptal To-do List Demonstration</title>
 	<script>
 		$(function() {
@@ -28,6 +28,7 @@
 		<div class="panel-heading">
 			<h3 class="panel-title">Toptal To-do List Demonstration</h3>
 		</div>
+		{% if username %}
 		<div class="table-responsive panel-body">
 			<table class="table table-striped" id="todotable">
 				<thead>
@@ -76,9 +77,33 @@
 		<div class="panel-footer">
 			<p><small>{{ username }}, you can also access the API using your API key:</small> <code>{{ api_key }}</code></p>
 		</div>
+		{% else %}
+		<div class="panel-body">
+			<form role="form" class="loginform">
+				<div class="form-group">
+					<label for="username_input">Username:</label>
+					<input type="text" class="form-control" id="username_input" placeholder="Enter username">
+				</div>
+				<div class="form-group">
+					<label for="password_input">Password:</label>
+					<input type="password" class="form-control" id="password_input" placeholder="Enter password">
+				</div>
+				<div class="form-group signuponly">
+					<label for="password_confirm_input">Confirm password:</label>
+					<input type="password" class="form-control" id="password_confirm_input" placeholder="Confirm password">
+				</div>
+				<div class="form-group signuponly">
+					<label for="email_input">Email address:</label>
+					<input type="email" class="form-control" id="email_input" placeholder="Enter e-mail address">
+				</div>
+				<button type="submit" class="btn btn-default submit">Submit</button>
+				<button type="button" class="btn btn-default signup" id="signuptoggle">Sign up</button>
+			</form>
+		</div>
+		{% endif %}
 	</div>
-	<script type="text/javascript" src="/static/todo/js/underscore-min.js"></script>
-	<script type="text/javascript" src="/static/todo/js/backbone-min.js"></script>
+	<script type="text/javascript" src="/static/todo/js/underscore.js"></script>
+	<script type="text/javascript" src="/static/todo/js/backbone.js"></script>
 	<script type="text/javascript" src="/static/todo/js/backbone-tastypie.js"></script>
 	<script type="text/javascript" src="/static/todo/js/application.js"></script>
 </body>
