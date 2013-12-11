@@ -1,7 +1,7 @@
 To-Do Demo
 ==========
 
-This app was built in a few days as a demonstration for a prospective employer. It is *not* production ready, but it works.
+This app was built in a few days as a demonstration for a prospective employer. It is **not production ready**, but it works.
 
 Features
 --------
