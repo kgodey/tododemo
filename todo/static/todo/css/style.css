@@ -69,3 +69,11 @@ select {
 	line-height: 1.42857;
 	padding: 6px 12px;
 }
+
+.table tbody > tr > td.removebutton {
+	vertical-align: middle !important;
+}
+
+.table tbody tr td.completed {
+	text-align: center !important;
+}

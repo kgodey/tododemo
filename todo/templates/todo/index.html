@@ -4,10 +4,10 @@
 	<table class="table table-striped" id="todotable">
 		<thead>
 			<tr>
-				<th><button type="button" class="btn btn-sm glyphbutton" id="sortcompleted"><span class="glyphicon glyphicon-sort"></span></button></th>
-				<th><button type="button" class="btn btn-sm glyphbutton" id="sorttitle"><span class="glyphicon glyphicon-sort"></span></button> Title</th>
-				<th><button type="button" class="btn btn-sm glyphbutton" id="sortduedate"><span class="glyphicon glyphicon-sort"></span></button> Due Date</th>
-				<th><button type="button" class="btn btn-sm glyphbutton" id="sortpriority"><span class="glyphicon glyphicon-sort"></span></button> Priority</th>
+				<th><button type="button" class="btn btn-default glyphbutton" id="sortcompleted">&nbsp;<span class="glyphicon glyphicon-sort"></span>&nbsp;</button></th>
+				<th><button type="button" class="btn btn-default glyphbutton" id="sorttitle"><span class="glyphicon glyphicon-sort"></span> Title</button></th>
+				<th><button type="button" class="btn btn-default glyphbutton" id="sortduedate"><span class="glyphicon glyphicon-sort"></span> Due Date</button></th>
+				<th><button type="button" class="btn btn-default glyphbutton" id="sortpriority"><span class="glyphicon glyphicon-sort"></span> Priority</button></th>
 				<th></th>
 			</tr>
 		</thead>
@@ -40,12 +40,12 @@
 					<option value="2"<% if (priority == "2") { %> selected<% } %>>High</option>
 					<option value="1"<% if (priority == "1") { %> selected<% } %>>Highest</option>
 				</select></td>
-				<td><button type="button" class="removeitem btn btn-danger btn-xs">Remove</button></td>
+				<td class="removebutton"><button type="button" class="removeitem btn btn-danger btn-xs">Remove</button></td>
 			</script>
 		</tbody>
 	</table>
 </div>
 <div class="panel-footer">
-	<p><small>{{ username }}, you can also access the API using your API key:</small> <code>{{ api_key }}</code><span class="pull-right"><a href="{% url 'logout' %}"><button class="btn btn-default btn-sm" type="button">Logout</button></a></p>
+		<p><small>{{ username }}, you can also access the API using your API key:</small> <code>{{ api_key }}</code><span class="pull-right"><a href="{% url 'logout' %}"><button class="btn btn-default btn-sm" type="button">Logout</button></a></p>
 </div>
 {% endblock %}
