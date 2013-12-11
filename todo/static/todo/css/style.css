@@ -1,7 +1,3 @@
-tr.todoitem td input {
-	width: 100%;
-}
-
 tr.todoitem td .view {
 	background-color: transparent;
 	border: none;
@@ -33,4 +29,41 @@ div.panel-default {
 	margin-left:auto;
 	margin-right:auto;
 	max-width:70%;
+}
+
+div.view {
+
+}
+
+div#newtitle, div.editing {
+	-moz-appearance: textfield;
+	-webkit-appearance: textfield;
+	background-color: white;
+	background-color: -moz-field;
+	border: 1px solid #CCCCCC;
+	border-radius: 4px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+	color: #555555;
+	display: block;
+	font-size: 14px;
+	min-height: 34px;
+	line-height: 1.42857;
+	padding: 6px 12px;
+	transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+	vertical-align: middle;
+	width: 100%;
+}
+
+input[type=text] {
+	font-size: 14px;
+	min-height: 34px;
+	line-height: 1.42857;
+	padding: 6px 12px;
+}
+
+select {
+	font-size: 14px;
+	min-height: 34px;
+	line-height: 1.42857;
+	padding: 6px 12px;
 }

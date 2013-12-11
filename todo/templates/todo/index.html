@@ -14,7 +14,7 @@
 		<tbody>
 			<tr class="todoitem" id="addnewitem">
 				<td class="completed"></td>
-				<td class="title"><input type="text" id="newtitle" placeholder="New todo item"></td>
+				<td class="title"><div contenteditable="true" id="newtitle">New todo item</div></td>
 				<td class="duedate"><input type="text" class="datepicker" id="newduedate"></td>
 				<td class="priority">
 					<select id="newpriority">
@@ -31,7 +31,7 @@
 		<tbody id="todotbody">
 			<script id="todoitem-template" type="text/template">
 				<td class="completed"><input type="checkbox"<%= completed ? "checked" : "" %>></td>
-				<td class="title"><input type="text" value="<%= title %>" class="view" <%= completed ? "disabled=true" : "" %>></td>
+				<td class="title"><div contenteditable="<%= completed ? "false" : "" %>" class="view" ><%= title %></div></td>
 				<td class="duedate"><input type="text" class="view datepicker" value="<%= due_date %>" <%= completed ? "disabled=true" : "" %>></td>
 				<td class="priority"><select class="priority" class="view" <%= completed ? "disabled=true" : "" %>>
 					<option value="5"<% if (priority == "5") { %> selected<% } %>>Lowest</option>

@@ -69,8 +69,8 @@ $(function() {
 			'change .duedate': 'saveDueDate',
 			'click .removeitem': 'removeItem',
 			'change .completed input': 'toggleComplete',
-			'keypress .title input': 'updateTitleOnEnter',
-			'blur .title input': 'closeTitle',
+			'keypress .title div': 'updateTitleOnEnter',
+			'blur .title div': 'closeTitle',
 			'blur .duedate input': 'closeDueDate',
 			'blur .priority select': 'closePriority',
 		},
@@ -84,7 +84,7 @@ $(function() {
 			this.$el.attr("id", this.model.get("id"));
 			this.$el.html(this.template(this.model.toJSON()));
 			this.$el.toggleClass("completeditem", this.model.get("completed"));
-			this.$title = this.$(".title input");
+			this.$title = this.$(".title div");
 			this.$priority = this.$(".priority select");
 			this.$due_date = this.$(".duedate input");
 			
@@ -102,6 +102,7 @@ $(function() {
 		
 		editTitle: function() {
 			this.$title.removeClass("view");
+			this.$title.addClass("editing");
 		},
 		
 		editPriority: function() {
@@ -119,6 +120,7 @@ $(function() {
 		},
 		
 		closeTitle: function() {
+			this.$title.removeClass("editing");
 			this.$title.addClass("view");
 		},
 		
@@ -131,7 +133,7 @@ $(function() {
 		},
 		
 		saveTitle: function() {
-			var title = this.$title.val().trim();
+			var title = this.$title.html().replace(/(<([^>]+)>)/ig,"").trim();
 			this.model.save({title: title});
 		},
 		
@@ -178,12 +180,12 @@ $(function() {
 		},
 		
 		createItem: function() {
-			title = this.$("#addnewitem input#newtitle").val().trim();
+			title = this.$("#addnewitem div#newtitle").html().replace(/(<([^>]+)>)/ig,"").trim();
 			priority = this.$("#addnewitem select#newpriority").val().trim();
 			due_date = this.$("#addnewitem input#newduedate").val().trim();
 			app.Todos.create({title:title, completed:false, priority:priority, due_date:due_date}, {wait:true});
 			this.$("#addnewitem input#newduedate").val("");
-			this.$("#addnewitem input#newtitle").val("");
+			this.$("#addnewitem div#newtitle").html("");
 			this.$("#addnewitem select#newpriority").val("3");
 		},
 		
