@@ -31,10 +31,6 @@ div.panel-default {
 	max-width:70%;
 }
 
-div.view {
-
-}
-
 div#newtitle, div.editing {
 	-moz-appearance: textfield;
 	-webkit-appearance: textfield;
@@ -52,6 +48,12 @@ div#newtitle, div.editing {
 	transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
 	vertical-align: middle;
 	width: 100%;
+}
+
+div#newtitle:focus, div.editing:focus {
+	border-color: #66AFE9;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+	outline: 0 none;
 }
 
 input[type=text] {

@@ -61,10 +61,10 @@ $(function() {
 		template: _.template($("#todoitem-template").html()),
 		
 		events: {
+			'click .title': 'focusTitle',
 			'focus .title': 'editTitle',
 			'focus .priority': 'editPriority',
 			'focus .duedate': 'editDueDate',
-			'change .title': 'saveTitle',
 			'change .priority': 'savePriority',
 			'change .duedate': 'saveDueDate',
 			'click .removeitem': 'removeItem',
@@ -100,6 +100,10 @@ $(function() {
 			this.model.toggleComplete();
 		},
 		
+		focusTitle: function() {
+			this.$title.focus();
+		},
+		
 		editTitle: function() {
 			this.$title.removeClass("view");
 			this.$title.addClass("editing");
@@ -116,6 +120,7 @@ $(function() {
 		updateTitleOnEnter: function(event) {
 			var keyCode = event.keyCode || event.which;
 			if (keyCode != 13) return;
+			this.saveTitle();
 			this.closeTitle();
 		},
 		
