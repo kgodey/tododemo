@@ -23,9 +23,15 @@ else:
 	SECRET_KEY = 'ghjt(cq72wtdvc%rsg85%4j)%3=xcgk99phwrzeu4^10u60ds9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if 'NO_DEBUG' in os.environ:
+	DEBUG = False
+else:
+	DEBUG = True
 
-TEMPLATE_DEBUG = True
+if 'NO_DEBUG' in os.environ:
+	TEMPLATE_DEBUG = False
+else:
+	TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
